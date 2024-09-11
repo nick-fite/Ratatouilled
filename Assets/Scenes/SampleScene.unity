@@ -406,7 +406,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1573791942883004200, guid: e352e8a89cf64b84f97bbdee85b77e04, type: 3}
       propertyPath: _WalkCycleSpeed
-      value: 0.5
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1921507433335280866, guid: e352e8a89cf64b84f97bbdee85b77e04, type: 3}
       propertyPath: m_LocalPosition.x
