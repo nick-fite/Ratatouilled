@@ -280,6 +280,7 @@ MonoBehaviour:
   _armsAnim: {fileID: 0}
   TopWalkingPos: {fileID: 7905122004413294778}
   DefaultPos: {fileID: 392572420005648867}
+  WalkCycleSpeed: 0.1
 --- !u!114 &8708154687192163975
 MonoBehaviour:
   m_ObjectHideFlags: 0
