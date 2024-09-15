@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 745de6cbdf715e84b9323e85ba9a038b
+guid: b58315fe61d18ce4e8e600cfd5760cd2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: right punch
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 26
+      lastFrame: 27.9
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -763,7 +763,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:RightShoulder
       parentName: mixamorig:Spine2
-      position: {x: 0.061056957, y: 0.091063835, z: 0.007570756}
+      position: {x: 0.067, y: 0.211, z: 0.023}
       rotation: {x: -0.45380348, y: -0.5448757, z: 0.5511121, w: -0.4398276}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:RightArm

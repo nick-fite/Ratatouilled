@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
     private CharacterController _charCont;
     [SerializeField] private Animator _armsAnim;
     private Vector2 _moveInput;
-    private float _punching;
+    private float _punchingRight;
+    private float _punchingLeft;
     private float verticalRot = 0;
     private ArmsAnim armAnimator;
     void Start()
@@ -34,8 +35,6 @@ public class Player : MonoBehaviour
         Punching();
     }
 
-    bool goingUp;
-    bool goingDown;
     void Movement()
     {
         Vector3 moveDirection = transform.forward * _moveInput.y + transform.right * _moveInput.x; 
@@ -55,9 +54,17 @@ public class Player : MonoBehaviour
     
     void Punching()
     {
-        if(_punching > 0)
-            _armsAnim.SetTrigger("Punching");
-            _punching = 0;
+        if(_punchingLeft  > 0)
+        {
+            _armsAnim.SetTrigger("RightPunch");
+            _punchingLeft = 0;
+        }
+        
+        if(_punchingRight > 0)
+        {
+            _armsAnim.SetTrigger("LeftPunch");
+            _punchingRight = 0;
+        }
     }
 
     public void OnWalk(InputValue value)
@@ -73,8 +80,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnPunch(InputValue value)
+    public void OnRightPunch(InputValue value)
     {
-        _punching = value.Get<float>();
+        _punchingRight = value.Get<float>();
+    }
+
+    public void OnLeftPunch(InputValue value)
+    {
+        _punchingLeft = value.Get<float>();
     }
 }

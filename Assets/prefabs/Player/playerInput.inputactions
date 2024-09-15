@@ -6,7 +6,7 @@
             "id": "842b8ed1-d21a-4603-b3f9-1898ae94e681",
             "actions": [
                 {
-                    "name": "walk",
+                    "name": "Walk",
                     "type": "Value",
                     "id": "34c863ea-8c23-493c-872f-568f69930299",
                     "expectedControlType": "Vector2",
@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "punch",
+                    "name": "RightPunch",
                     "type": "Button",
                     "id": "c19cd937-cc68-4ae0-a776-02985de3221f",
                     "expectedControlType": "",
@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LeftPunch",
+                    "type": "Button",
+                    "id": "f68683c9-aa9a-4483-bf74-02f48480f207",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -41,7 +50,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "walk",
+                    "action": "Walk",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -52,7 +61,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "walk",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -63,7 +72,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "walk",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -74,7 +83,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "walk",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -85,18 +94,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "walk",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
                     "id": "927454da-22fc-407a-a545-dd66da2f9596",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightPunch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c67f501-9b00-48ff-858b-81d93cce23d9",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "punch",
+                    "action": "LeftPunch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

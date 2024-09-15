@@ -29,7 +29,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""842b8ed1-d21a-4603-b3f9-1898ae94e681"",
             ""actions"": [
                 {
-                    ""name"": ""walk"",
+                    ""name"": ""Walk"",
                     ""type"": ""Value"",
                     ""id"": ""34c863ea-8c23-493c-872f-568f69930299"",
                     ""expectedControlType"": ""Vector2"",
@@ -38,7 +38,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""punch"",
+                    ""name"": ""RightPunch"",
                     ""type"": ""Button"",
                     ""id"": ""c19cd937-cc68-4ae0-a776-02985de3221f"",
                     ""expectedControlType"": """",
@@ -54,6 +54,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LeftPunch"",
+                    ""type"": ""Button"",
+                    ""id"": ""f68683c9-aa9a-4483-bf74-02f48480f207"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -64,7 +73,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""walk"",
+                    ""action"": ""Walk"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -75,7 +84,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""walk"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -86,7 +95,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""walk"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -97,7 +106,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""walk"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -108,18 +117,29 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""walk"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
                     ""id"": ""927454da-22fc-407a-a545-dd66da2f9596"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightPunch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c67f501-9b00-48ff-858b-81d93cce23d9"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""punch"",
+                    ""action"": ""LeftPunch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -130,9 +150,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_walk = m_Player.FindAction("walk", throwIfNotFound: true);
-        m_Player_punch = m_Player.FindAction("punch", throwIfNotFound: true);
+        m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
+        m_Player_RightPunch = m_Player.FindAction("RightPunch", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_LeftPunch = m_Player.FindAction("LeftPunch", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -199,16 +220,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_walk;
-    private readonly InputAction m_Player_punch;
+    private readonly InputAction m_Player_Walk;
+    private readonly InputAction m_Player_RightPunch;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_LeftPunch;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @walk => m_Wrapper.m_Player_walk;
-        public InputAction @punch => m_Wrapper.m_Player_punch;
+        public InputAction @Walk => m_Wrapper.m_Player_Walk;
+        public InputAction @RightPunch => m_Wrapper.m_Player_RightPunch;
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @LeftPunch => m_Wrapper.m_Player_LeftPunch;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -218,28 +241,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @walk.started += instance.OnWalk;
-            @walk.performed += instance.OnWalk;
-            @walk.canceled += instance.OnWalk;
-            @punch.started += instance.OnPunch;
-            @punch.performed += instance.OnPunch;
-            @punch.canceled += instance.OnPunch;
+            @Walk.started += instance.OnWalk;
+            @Walk.performed += instance.OnWalk;
+            @Walk.canceled += instance.OnWalk;
+            @RightPunch.started += instance.OnRightPunch;
+            @RightPunch.performed += instance.OnRightPunch;
+            @RightPunch.canceled += instance.OnRightPunch;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @LeftPunch.started += instance.OnLeftPunch;
+            @LeftPunch.performed += instance.OnLeftPunch;
+            @LeftPunch.canceled += instance.OnLeftPunch;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @walk.started -= instance.OnWalk;
-            @walk.performed -= instance.OnWalk;
-            @walk.canceled -= instance.OnWalk;
-            @punch.started -= instance.OnPunch;
-            @punch.performed -= instance.OnPunch;
-            @punch.canceled -= instance.OnPunch;
+            @Walk.started -= instance.OnWalk;
+            @Walk.performed -= instance.OnWalk;
+            @Walk.canceled -= instance.OnWalk;
+            @RightPunch.started -= instance.OnRightPunch;
+            @RightPunch.performed -= instance.OnRightPunch;
+            @RightPunch.canceled -= instance.OnRightPunch;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @LeftPunch.started -= instance.OnLeftPunch;
+            @LeftPunch.performed -= instance.OnLeftPunch;
+            @LeftPunch.canceled -= instance.OnLeftPunch;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -260,7 +289,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnWalk(InputAction.CallbackContext context);
-        void OnPunch(InputAction.CallbackContext context);
+        void OnRightPunch(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnLeftPunch(InputAction.CallbackContext context);
     }
 }
