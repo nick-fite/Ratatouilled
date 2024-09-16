@@ -17,10 +17,9 @@ public class HandCollision : MonoBehaviour
                 enemy.RagDoll();
                 
                 Vector3 forceDir = enemy.gameObject.transform.position - transform.position;
-                forceDir.y = 0;
                 forceDir.Normalize();
 
-                enemy.GeneralRB().AddExplosionForce(1000, transform.position, 100,0,ForceMode.Impulse);
+                enemy.GeneralRB().AddExplosionForce(10, transform.position, 100,0,ForceMode.Impulse);
             }
         }
     }

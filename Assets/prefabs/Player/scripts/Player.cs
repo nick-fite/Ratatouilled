@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class Player : MonoBehaviour
         _playerInput.Player.Enable();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         Movement();
         Punching();
@@ -49,8 +50,8 @@ public class Player : MonoBehaviour
         verticalRot -= mouseY;
         verticalRot = Mathf.Clamp(verticalRot, -90, 90);
 
-        _camera.transform.localRotation = Quaternion.Euler(verticalRot, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+        _camera.transform.localRotation = Quaternion.Euler(verticalRot, 0f, 0f);
     }
     
     void Punching()

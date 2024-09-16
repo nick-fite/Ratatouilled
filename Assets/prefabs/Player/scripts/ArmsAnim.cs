@@ -45,14 +45,14 @@ public class ArmsAnim : MonoBehaviour
             {
                 tUp += Time.deltaTime * upRate;
                 _Arms.transform.position = Vector3.Slerp(_Arms.transform.position, _TopWalkingPos.position, tUp);
-                yield return null;
+                yield return new WaitForEndOfFrame();
             }
             
             while(tDown < 1.0f)
             {
                 tDown += Time.deltaTime * downRate;
                 _Arms.transform.position = Vector3.Slerp(_Arms.transform.position, _DefaultPos.position, tDown);
-                yield return null;
+                yield return new WaitForEndOfFrame();
             }
             yield return null;
         }
