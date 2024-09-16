@@ -13,7 +13,6 @@ public class ArmAnimation : MonoBehaviour
     void Start()
     {
         AudioSource[] sources = GetComponents<AudioSource>();
-        Debug.Log(sources.Length);
         _LeftArmAudio = sources[0];
         _RightArmAudio = sources[1];
 
