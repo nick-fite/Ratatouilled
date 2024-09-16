@@ -172,11 +172,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6165719963904192845, guid: a04c73ca67ef600469d35a1da4e5983b, type: 3}
       propertyPath: m_Height
-      value: 1.8274891
+      value: 1.779979
       objectReference: {fileID: 0}
     - target: {fileID: 6165719963904192845, guid: a04c73ca67ef600469d35a1da4e5983b, type: 3}
       propertyPath: m_Radius
-      value: 0.77039826
+      value: 0.441885
       objectReference: {fileID: 0}
     - target: {fileID: 6165719963904192845, guid: a04c73ca67ef600469d35a1da4e5983b, type: 3}
       propertyPath: m_Center.x
@@ -184,7 +184,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6165719963904192845, guid: a04c73ca67ef600469d35a1da4e5983b, type: 3}
       propertyPath: m_Center.y
-      value: 0.90018094
+      value: 0.923936
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165719963904192845, guid: a04c73ca67ef600469d35a1da4e5983b, type: 3}
+      propertyPath: m_Center.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6165719963904192845, guid: a04c73ca67ef600469d35a1da4e5983b, type: 3}
       propertyPath: m_IsTrigger
@@ -565,10 +569,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
+  m_IsKinematic: 1
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &762738573
 GameObject:
   m_ObjectHideFlags: 0
