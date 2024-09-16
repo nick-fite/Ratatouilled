@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c501ea5255ebcb419f4840f9f0569e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 10
 --- !u!1 &1854348313 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6776376378443135753, guid: e352e8a89cf64b84f97bbdee85b77e04, type: 3}
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c501ea5255ebcb419f4840f9f0569e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 10
 --- !u!1001 &3218152884577450705
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,35 +7,43 @@ public class Enemy : MonoBehaviour
    [SerializeField] GameObject _Hip;
    [SerializeField] int _Health = 100;
    List<Rigidbody> _RagDollRB = new List<Rigidbody>();
+   Rigidbody _GeneralRB;
+   [SerializeField] Rigidbody _ChestRB;
+   Animator _Anim;
+
+   public Rigidbody GeneralRB()
+   {
+      return _GeneralRB;
+   }
+
+   public Rigidbody GetChestRB()
+   {
+      return _ChestRB;
+   }
+
+   public List<Rigidbody> GetRagDollRB()
+   {
+      return _RagDollRB;
+   }
+
    void Start()
    {
       _RagDollRB.AddRange(_Hip.GetComponentsInChildren<Rigidbody>());
       Debug.Log(_RagDollRB.Count);
 
-      foreach(Rigidbody rb in _RagDollRB)
-      {
-         rb.isKinematic = false;
-      }
+      _GeneralRB = GetComponent<Rigidbody>();
+      _Anim = GetComponent<Animator>();
    }
 
-   public void AddHealth(int healthToAdd)
+   public int AddHealth(int healthToAdd)
    {
-      _Health -= healthToAdd;
+      _Health += healthToAdd;
       Debug.Log(_Health);
-      if(_Health == 0)
-      {
-         RagDoll();      
-      }
+      return _Health;
    }
 
    public void RagDoll()
    {
-      Rigidbody enemyRB = GetComponent<Rigidbody>(); 
-      enemyRB.isKinematic = false;
-
-      foreach(Rigidbody rb in _RagDollRB)
-      {
-         rb.isKinematic = true;
-      }
+      _Anim.enabled = false;
    }
 }
