@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private float _punchingLeft;
     private float verticalRot = 0;
     private ArmsAnim armAnimator;
+
     void Start()
     {        
         _playerInput = new PlayerInput();
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour
         armAnimator = GetComponent<ArmsAnim>();
 
         Cursor.lockState = CursorLockMode.Locked;
-        _playerInput.Player.Enable();        
+        _playerInput.Player.Enable();
     }
 
     void FixedUpdate()

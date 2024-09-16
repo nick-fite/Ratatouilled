@@ -309,6 +309,8 @@ MonoBehaviour:
   _LookSensX: 0
   _LookSensY: 0
   _armsAnim: {fileID: 0}
+  LeftHand: {fileID: 5027255362072338372}
+  RightHand: {fileID: 6776376378443135753}
 --- !u!114 &1573791942883004200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,8 +382,70 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4175520606042666643, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6506714591497525897}
+    - targetCorrespondingSourceObject: {fileID: 2467002458744001118, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7947273151650699404}
   m_SourcePrefab: {fileID: 100100000, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
+--- !u!1 &5027255362072338372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4175520606042666643, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
+  m_PrefabInstance: {fileID: 8950354243873728855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &6506714591497525897
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027255362072338372}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.14085512
+  m_Height: 0.3246761
+  m_Direction: 1
+  m_Center: {x: -5.3542576e-10, y: 0.096059404, z: 0.000000016347945}
+--- !u!1 &6776376378443135753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2467002458744001118, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
+  m_PrefabInstance: {fileID: 8950354243873728855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &7947273151650699404
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6776376378443135753}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1408551
+  m_Height: 0.3246761
+  m_Direction: 1
+  m_Center: {x: 0.0000000015938089, y: 0.099812746, z: -0.00000001053707}
 --- !u!1 &8603088023783500633 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 815790599881392654, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
