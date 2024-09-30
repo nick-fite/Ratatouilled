@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class HandCollision : MonoBehaviour
@@ -14,13 +14,19 @@ public class HandCollision : MonoBehaviour
 
             if(health < 1)
             {
-                enemy.RagDoll();
                 
                 Vector3 forceDir = enemy.gameObject.transform.position - transform.position;
                 forceDir.Normalize();
-
-                enemy.GeneralRB().AddExplosionForce(10, transform.position, 100,0,ForceMode.Impulse);
+                StartCoroutine(WaitThenExplode(enemy));
             }
         }
+    }
+
+    private IEnumerator WaitThenExplode(Enemy target)
+    {
+        target.RagDoll();
+        Debug.Log("exploding");
+        target.GetChestRB().AddExplosionForce(500f, transform.position,3f,0f, ForceMode.Impulse);
+        yield return null;
     }
 }

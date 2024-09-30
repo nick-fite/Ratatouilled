@@ -33,6 +33,13 @@ public class Enemy : MonoBehaviour
 
       _GeneralRB = GetComponent<Rigidbody>();
       _Anim = GetComponent<Animator>();
+      
+      foreach(Rigidbody rb in _RagDollRB) {
+         Debug.Log(rb.name);
+         rb.GetComponent<Collider>().enabled = false;
+         rb.useGravity = false;
+         rb.isKinematic = true;
+      }
    }
 
    public int AddHealth(int healthToAdd)
@@ -45,5 +52,8 @@ public class Enemy : MonoBehaviour
    public void RagDoll()
    {
       _Anim.enabled = false;
+      foreach(Rigidbody rb in _RagDollRB) {
+         rb.isKinematic = false;
+      }
    }
 }

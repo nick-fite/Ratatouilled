@@ -1,9 +1,9 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
+/// <summary>
+/// Basic movement system player, combat and outside elements more interesting.
+/// </summary>
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -15,12 +15,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator _armsAnim;
     private ArmsProceduralAnimation armAnimator;
     private Vector2 _moveInput;
-    private float _punchingRight;
-    private float _punchingLeft;
+    private bool _punchingRight;
+    private bool _punchingLeft;
     private float verticalRot = 0;
-    private bool bIsGrounded = true;
     [SerializeField] private float _gravity;
-    private Vector3 _charVel;
+    [SerializeField] private float _charVel;
+    [SerializeField] private float _jumpPower;
+    private Vector3 _charDir;
+
 
     void Start()
     {        
@@ -43,16 +45,23 @@ public class Player : MonoBehaviour
     {
         Look();
         Punching();
+        
     }
 
     void Movement()
     {
-        Vector3 moveDirection = transform.forward * _moveInput.y + transform.right * _moveInput.x; 
-        _charCont.Move(moveDirection * _speed * Time.deltaTime);
+        _charDir = transform.forward * _moveInput.y + transform.right * _moveInput.x;
+        
+        if(_charCont.isGrounded && _charVel < 0.0f){
+            _charVel = -1.0f;
+        }
+        else 
+        {
+            _charVel += -_gravity * Time.deltaTime;
+        }
 
-        _charVel.y += Time.deltaTime * -_gravity;
-        _charCont.SimpleMove(_charVel * Time.deltaTime);
-        Debug.Log(_charCont.velocity);
+        _charDir.y = _charVel;
+        _charCont.Move(_charDir * _speed * Time.deltaTime);
     }
     
     void Look() {
@@ -68,16 +77,16 @@ public class Player : MonoBehaviour
 
     void Punching()
     {
-        if(_punchingLeft  > 0)
+        if(_punchingLeft)
         {
             _armsAnim.SetTrigger("RightPunch");
-            _punchingLeft = 0;
+            _punchingLeft = false;
         }
         
-        if(_punchingRight > 0)
+        if(_punchingRight)
         {
             _armsAnim.SetTrigger("LeftPunch");
-            _punchingRight = 0;
+            _punchingRight = false;
         }
     }
 
@@ -96,11 +105,17 @@ public class Player : MonoBehaviour
 
     public void OnRightPunch(InputValue value)
     {
-        _punchingRight = value.Get<float>();
+        _punchingRight = value.Get<float>() > 0;
     }
 
     public void OnLeftPunch(InputValue value)
     {
-        _punchingLeft = value.Get<float>();
+        _punchingLeft = value.Get<float>() > 0;
+    }
+
+    public void OnJump(InputValue value)
+    {
+        bool jumping = value.Get<float>() > 0;
+        if(jumping && _charCont.isGrounded) _charVel += _jumpPower;
     }
 }
