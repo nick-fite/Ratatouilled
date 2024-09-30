@@ -13,11 +13,14 @@ public class Player : MonoBehaviour
     private PlayerInput _playerInput;
     private CharacterController _charCont;
     [SerializeField] private Animator _armsAnim;
+    private ArmsProceduralAnimation armAnimator;
     private Vector2 _moveInput;
     private float _punchingRight;
     private float _punchingLeft;
     private float verticalRot = 0;
-    private ArmsAnim armAnimator;
+    private bool bIsGrounded = true;
+    [SerializeField] private float _gravity;
+    private Vector3 _charVel;
 
     void Start()
     {        
@@ -25,25 +28,34 @@ public class Player : MonoBehaviour
         _charCont = GetComponent<CharacterController>();
         _camera = GetComponentInChildren<Camera>();
         _armsAnim = GetComponentInChildren<Animator>();
-        armAnimator = GetComponent<ArmsAnim>();
+        armAnimator = GetComponent<ArmsProceduralAnimation>();
 
         Cursor.lockState = CursorLockMode.Locked;
         _playerInput.Player.Enable();
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         Movement();
+    }
+
+    void LateUpdate()
+    {
+        Look();
         Punching();
     }
 
     void Movement()
     {
         Vector3 moveDirection = transform.forward * _moveInput.y + transform.right * _moveInput.x; 
-
         _charCont.Move(moveDirection * _speed * Time.deltaTime);
 
-        // Camera controls
+        _charVel.y += Time.deltaTime * -_gravity;
+        _charCont.SimpleMove(_charVel * Time.deltaTime);
+        Debug.Log(_charCont.velocity);
+    }
+    
+    void Look() {
         float mouseX = Input.GetAxis("Mouse X") * _LookSensX;
         float mouseY = Input.GetAxis("Mouse Y") * _LookSensY;
         
@@ -53,7 +65,7 @@ public class Player : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
         _camera.transform.localRotation = Quaternion.Euler(verticalRot, 0f, 0f);
     }
-    
+
     void Punching()
     {
         if(_punchingLeft  > 0)

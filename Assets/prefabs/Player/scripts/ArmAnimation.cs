@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArmAnimation : MonoBehaviour
+public class ArmAnimationEvents : MonoBehaviour
 {
     AudioSource _LeftArmAudio;
     AudioSource _RightArmAudio;

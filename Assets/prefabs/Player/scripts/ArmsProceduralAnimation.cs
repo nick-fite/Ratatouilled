@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ArmsAnim : MonoBehaviour
+public class ArmsProceduralAnimation : MonoBehaviour
 {
     [SerializeField] private Transform _TopWalkingPos;
     [SerializeField] private Transform _DefaultPos;
