@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
     private Vector3 _charDir;
     private ArmsProceduralAnimation _ArmAnimator;
     private Arms _Arms;
-    private PowerUp _CurrentPowerUp;
+    [SerializeField] private PowerUp _CurrentPowerUp;
+    private PowerUp _DefaultPower;
 
     void Start()
     {        
@@ -34,7 +35,8 @@ public class Player : MonoBehaviour
         _armsAnim = GetComponentInChildren<Animator>();
         _ArmAnimator = GetComponent<ArmsProceduralAnimation>();
         _Arms = GetComponentInChildren<Arms>();
-        _CurrentPowerUp = GetComponent<PowerUp>();
+        _DefaultPower = GetComponent<PowerUp>();
+        _CurrentPowerUp = _DefaultPower;
 
         Cursor.lockState = CursorLockMode.Locked;
         _playerInput.Player.Enable();
@@ -127,9 +129,13 @@ public class Player : MonoBehaviour
 
     public void OnThrowPowerUp(InputValue value)
     {
-        _CurrentPowerUp.Eject(transform.forward);
-        _CurrentPowerUp = GetComponent<PowerUp>();
-        AdjustToPowerUp(_CurrentPowerUp);
+        Debug.Log("Throwing Item");
+        _armsAnim.SetTrigger("ThrowItem");
+
+        if(value.Get<float>() > 0 && _CurrentPowerUp != _DefaultPower){
+            _CurrentPowerUp.Eject(transform.forward, _PushForce * 10, _PointOfImpact.position);
+            AdjustToPowerUp(_DefaultPower);
+        }
     }
 
     public void OnSpecial(InputValue value)
@@ -144,15 +150,14 @@ public class Player : MonoBehaviour
 
     void HandleHandCollision(GameObject obj, ArmActions action)
     {
-        Debug.Log(obj.name);
         if(obj.tag == "Enemy" && action == ArmActions.Punching)
-            obj.GetComponent<Enemy>().AddHealth(-_PunchPower, _PointOfImpact.position, _PushForce);
+            obj.GetComponent<Enemy>().AddHealth(-_PunchPower, _PointOfImpact, _PushForce);
 
         if(obj.tag == "Pickup" && action == ArmActions.Grabbing)
         {
-            Destroy(obj);
-            _CurrentPowerUp = obj.GetComponent<PowerUp>();
-            AdjustToPowerUp(_CurrentPowerUp);
+            Debug.Log(obj.name);
+            obj.SetActive(false);
+            AdjustToPowerUp(obj.GetComponent<PowerUp>());
             _CurrentPowerUp.OnStart();
 
         }
@@ -160,6 +165,7 @@ public class Player : MonoBehaviour
 
     void AdjustToPowerUp(PowerUp powerUp)
     {
+        _CurrentPowerUp = powerUp;
         _PunchPower = powerUp.Strength;
         _jumpPower = powerUp.Jump;
         _PushForce = powerUp.PushPower;

@@ -21,9 +21,9 @@ public class Arms : MonoBehaviour
     [SerializeField] GameObject _RightHand;
     [SerializeField] GameObject _PushPoint;
     [SerializeField] GameObject _Chest;
-    CapsuleCollider _LeftCollider;
-    CapsuleCollider _RightCollider;
-    CapsuleCollider _CenterCollider; 
+    Collider _LeftCollider;
+    Collider _RightCollider;
+    Collider _CenterCollider; 
     InteractCollision _LeftHandCollision;
     InteractCollision _RightHandCollision;
     InteractCollision _CenterCollision;
@@ -37,9 +37,10 @@ public class Arms : MonoBehaviour
         _LeftArmAudio.clip = _WhiffClip;
         _RightArmAudio.clip = _WhiffClip;
 
-        _LeftCollider = _LeftHand.GetComponent<CapsuleCollider>();
-        _RightCollider = _RightHand.GetComponent<CapsuleCollider>();
-        _CenterCollider = _Chest.GetComponent<CapsuleCollider>();
+        _LeftCollider = _LeftHand.GetComponent<Collider>();
+        _RightCollider = _RightHand.GetComponent<Collider>();
+        _CenterCollider = _Chest.GetComponent<Collider>();
+        Debug.Log(_Chest.gameObject.name);
 
         _LeftCollider.enabled = false;
         _RightCollider.enabled = false;
@@ -82,11 +83,11 @@ public class Arms : MonoBehaviour
     {
         _RightCollider.enabled = false;
         _CenterCollider.enabled = false;
-        if(_RightHandCollision.CollisionObject is not null)
+        if(_RightHandCollision.CollisionObject != null)
         {
             OnHandCollision.Invoke(_LeftHandCollision.CollisionObject, ArmActions.Punching);
         }
-        if(_CenterCollision.CollisionObject is not null)
+        if(_CenterCollision.CollisionObject != null)
         {
             OnHandCollision.Invoke(_CenterCollision.CollisionObject, ArmActions.Punching);
         }

@@ -90,6 +90,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThrowPowerUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""53bf0dc5-f786-4ec1-95b9-8724c15f01cf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -202,6 +211,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0444ce8-cd85-4f23-b10c-41a87c33b6e4"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrowPowerUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,6 +237,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
         m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
+        m_Player_ThrowPowerUp = m_Player.FindAction("ThrowPowerUp", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -290,6 +311,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Grab;
     private readonly InputAction m_Player_Special;
+    private readonly InputAction m_Player_ThrowPowerUp;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -301,6 +323,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Grab => m_Wrapper.m_Player_Grab;
         public InputAction @Special => m_Wrapper.m_Player_Special;
+        public InputAction @ThrowPowerUp => m_Wrapper.m_Player_ThrowPowerUp;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -331,6 +354,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Special.started += instance.OnSpecial;
             @Special.performed += instance.OnSpecial;
             @Special.canceled += instance.OnSpecial;
+            @ThrowPowerUp.started += instance.OnThrowPowerUp;
+            @ThrowPowerUp.performed += instance.OnThrowPowerUp;
+            @ThrowPowerUp.canceled += instance.OnThrowPowerUp;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -356,6 +382,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Special.started -= instance.OnSpecial;
             @Special.performed -= instance.OnSpecial;
             @Special.canceled -= instance.OnSpecial;
+            @ThrowPowerUp.started -= instance.OnThrowPowerUp;
+            @ThrowPowerUp.performed -= instance.OnThrowPowerUp;
+            @ThrowPowerUp.canceled -= instance.OnThrowPowerUp;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -382,5 +411,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
+        void OnThrowPowerUp(InputAction.CallbackContext context);
     }
 }

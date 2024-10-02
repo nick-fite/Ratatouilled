@@ -7,7 +7,7 @@ public class MantisShrimp : PowerUp
     {
        Strength = 20;
        PushPower = 20;
-       Jump = 1; 
+       Jump = 2; 
     }
 
     // Update is called once per frame

@@ -12,17 +12,8 @@ public class InteractCollision : MonoBehaviour
     
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject != null)
+        Debug.Log(col.gameObject.name);
+        if(col.gameObject != null && col.gameObject.layer != LayerMask.NameToLayer("Player"))
             CollisionObject = col.gameObject;
-        /*if(col.gameObject.tag == "Enemy")
-        {
-            Enemy enemy = col.gameObject.GetComponent<Enemy>();
-            enemy.AddHealth(-Damage, _PushPoint.forward, PushingForce);
-        }
-
-        if(col.gameObject.tag == "Pickup")
-        {
-
-        }*/
     }
 }

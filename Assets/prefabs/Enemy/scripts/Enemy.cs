@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
       }
    }
 
-   public void AddHealth(float healthToAdd, Vector3 pointOfImpact, float force)
+   public void AddHealth(float healthToAdd, Transform pointOfImpact, float force)
    {
       _Health += healthToAdd;
       Debug.Log(_Health);
@@ -43,14 +43,14 @@ public class Enemy : MonoBehaviour
       }
    }
 
-   public void Die(Vector3 pointOfImpact, float force)
+   public void Die(Transform pointOfImpact, float force)
    {
       RagDoll();
-      //Vector3 dir = (pointOfImpact - transform.position).normalized;
-      //_ChestRB.AddForce(dir * force, ForceMode.Impulse);
-      foreach(Rigidbody rb in _RagDollRB) {
-         Vector3 dir = pointOfImpact.normalized;
+      /*Vector3 dir = (pointOfImpact - transform.position).normalized;
+      _ChestRB.AddForce(dir * force, ForceMode.Impulse);*/
+      /*foreach(Rigidbody rb in _RagDollRB) {
+         Vector3 dir = pointOfImpact.forward.normalized;
          rb.AddForce(dir * force, ForceMode.Impulse);
-      }
+      }*/
    }
 }
