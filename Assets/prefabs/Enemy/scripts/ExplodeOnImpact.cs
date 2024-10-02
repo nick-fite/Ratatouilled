@@ -21,6 +21,8 @@ public class ExplodeOnImpact : MonoBehaviour
                 if(rb != null){
                 rb.AddExplosionForce(ExplosiveForce, transform.position, ExplosiveRadius);
                 }
+                Enemy enemy = collider.GetComponent<Enemy>();
+                enemy.AddHealth(-100, this.transform, ExplosiveForce);
             }
         }
         if(col.gameObject.tag == "Explodable")
