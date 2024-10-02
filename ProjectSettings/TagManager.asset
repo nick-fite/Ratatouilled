@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - EnemyChest
   - Pickup
+  - Explodable
   layers:
   - Default
   - TransparentFX

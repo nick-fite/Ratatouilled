@@ -12,7 +12,6 @@ public class InteractCollision : MonoBehaviour
     
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log(col.gameObject.name);
         if(col.gameObject != null && col.gameObject.layer != LayerMask.NameToLayer("Player"))
             CollisionObject = col.gameObject;
     }

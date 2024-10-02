@@ -10,11 +10,7 @@ public class ArmsProceduralAnimation : MonoBehaviour
     private bool _IsWalking = false;
 
     private IEnumerator CurrentCycle;
-    void Start()
-    {
-        
-    }
-
+    
     public void StartWalkCycle()
     {
         if(!_IsWalking)

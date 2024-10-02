@@ -78,6 +78,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4172939564282398409}
   - component: {fileID: 1053492935872554923}
+  - component: {fileID: 5938419677023981069}
   m_Layer: 3
   m_Name: ChestCollision
   m_TagString: Untagged
@@ -115,14 +116,26 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.14
-  m_Height: 1
+  m_Height: 1.3597598
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.0000000022037865, y: -0.17987862, z: 0.000000038043645}
+--- !u!114 &5938419677023981069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240220695291684219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c501ea5255ebcb419f4840f9f0569e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1845955106062097658
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,7 +705,7 @@ MonoBehaviour:
   _charVel: 0
   _jumpPower: 3
   _PunchPower: 10
-  _PushForce: 10
+  _PushForce: 50
   _PointOfImpact: {fileID: 3675153495511372053}
   _CurrentPowerUp: {fileID: 0}
 --- !u!114 &1573791942883004200
@@ -1096,9 +1109,6 @@ PrefabInstance:
       addedObject: {fileID: 6612538749012227276}
     - targetCorrespondingSourceObject: {fileID: 815790599881392654, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4645701630796233916}
-    - targetCorrespondingSourceObject: {fileID: 815790599881392654, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5455255123015939455}
     - targetCorrespondingSourceObject: {fileID: 815790599881392654, guid: 5085cf71dc5233145a9014bb21149631, type: 3}
       insertIndex: -1
@@ -1330,23 +1340,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4645701630796233916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8603088023783500633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 406cb2d2e596ed648b0c22f683969702, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _WhiffClip: {fileID: 8300000, guid: 6171882254e78f14bb8931e0b0525746, type: 3}
-  _LeftHand: {fileID: 8017795876241173252}
-  _RightHand: {fileID: 4603862492129494062}
-  _PushPoint: {fileID: 0}
-  _Chest: {fileID: 0}
 --- !u!82 &5455255123015939455
 AudioSource:
   m_ObjectHideFlags: 0

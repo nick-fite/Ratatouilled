@@ -40,7 +40,7 @@ public class Arms : MonoBehaviour
         _LeftCollider = _LeftHand.GetComponent<Collider>();
         _RightCollider = _RightHand.GetComponent<Collider>();
         _CenterCollider = _Chest.GetComponent<Collider>();
-        Debug.Log(_Chest.gameObject.name);
+        Debug.Log(_CenterCollider.gameObject.name);
 
         _LeftCollider.enabled = false;
         _RightCollider.enabled = false;
