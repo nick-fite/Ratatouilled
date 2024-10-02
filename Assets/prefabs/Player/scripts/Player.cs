@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     private Vector3 _charDir;
     private ArmsProceduralAnimation _ArmAnimator;
     private Arms _Arms;
-    private PowerUp _CurrentPowerUp = new PowerUp();
+    private PowerUp _CurrentPowerUp;
 
     void Start()
     {        
@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
         _armsAnim = GetComponentInChildren<Animator>();
         _ArmAnimator = GetComponent<ArmsProceduralAnimation>();
         _Arms = GetComponentInChildren<Arms>();
+        _CurrentPowerUp = GetComponent<PowerUp>();
 
         Cursor.lockState = CursorLockMode.Locked;
         _playerInput.Player.Enable();
@@ -127,7 +128,8 @@ public class Player : MonoBehaviour
     public void OnThrowPowerUp(InputValue value)
     {
         _CurrentPowerUp.Eject(transform.forward);
-
+        _CurrentPowerUp = GetComponent<PowerUp>();
+        AdjustToPowerUp(_CurrentPowerUp);
     }
 
     public void OnSpecial(InputValue value)
@@ -148,6 +150,7 @@ public class Player : MonoBehaviour
 
         if(obj.tag == "Pickup" && action == ArmActions.Grabbing)
         {
+            Destroy(obj);
             _CurrentPowerUp = obj.GetComponent<PowerUp>();
             AdjustToPowerUp(_CurrentPowerUp);
             _CurrentPowerUp.OnStart();

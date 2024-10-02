@@ -21,8 +21,6 @@ public class Arms : MonoBehaviour
     [SerializeField] GameObject _RightHand;
     [SerializeField] GameObject _PushPoint;
     [SerializeField] GameObject _Chest;
-    [SerializeField] float _Damage = 10f;
-    [SerializeField] float _PushingForce = 20f;
     CapsuleCollider _LeftCollider;
     CapsuleCollider _RightCollider;
     CapsuleCollider _CenterCollider; 

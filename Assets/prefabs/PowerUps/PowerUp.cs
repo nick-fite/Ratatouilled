@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public  class PowerUp : MonoBehaviour
+public class PowerUp : MonoBehaviour
 {
-    [SerializeField] protected float _Strength;
-    [SerializeField] protected float _Jump;
-    [SerializeField] protected float _PushPower;
+    [SerializeField] protected float _Strength = 10;
+    [SerializeField] protected float _Jump = 3;
+    [SerializeField] protected float _PushPower = 10;
+    [SerializeField] public GameObject Model;
     public float Strength
     {
         get{return _Strength;}
