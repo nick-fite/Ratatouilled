@@ -1,52 +1,36 @@
 using System.Collections.Generic;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
    [SerializeField] GameObject _Hip;
-   [SerializeField] int _Health = 100;
+   [SerializeField] float _Health = 100;
    List<Rigidbody> _RagDollRB = new List<Rigidbody>();
-   Rigidbody _GeneralRB;
    [SerializeField] Rigidbody _ChestRB;
    Animator _Anim;
-
-   public Rigidbody GeneralRB()
-   {
-      return _GeneralRB;
-   }
-
-   public Rigidbody GetChestRB()
-   {
-      return _ChestRB;
-   }
-
-   public List<Rigidbody> GetRagDollRB()
-   {
-      return _RagDollRB;
-   }
 
    void Start()
    {
       _RagDollRB.AddRange(_Hip.GetComponentsInChildren<Rigidbody>());
       Debug.Log(_RagDollRB.Count);
 
-      _GeneralRB = GetComponent<Rigidbody>();
       _Anim = GetComponent<Animator>();
       
       foreach(Rigidbody rb in _RagDollRB) {
-         Debug.Log(rb.name);
          rb.GetComponent<Collider>().enabled = false;
          rb.useGravity = false;
          rb.isKinematic = true;
       }
    }
 
-   public int AddHealth(int healthToAdd)
+   public void AddHealth(float healthToAdd, Vector3 pointOfImpact, float force)
    {
       _Health += healthToAdd;
       Debug.Log(_Health);
-      return _Health;
+      
+      if (_Health < 1)
+         Die(pointOfImpact, force);
+
    }
 
    public void RagDoll()
@@ -54,6 +38,19 @@ public class Enemy : MonoBehaviour
       _Anim.enabled = false;
       foreach(Rigidbody rb in _RagDollRB) {
          rb.isKinematic = false;
+         rb.useGravity = true;
+         rb.GetComponent<Collider>().enabled = true;
+      }
+   }
+
+   public void Die(Vector3 pointOfImpact, float force)
+   {
+      RagDoll();
+      //Vector3 dir = (pointOfImpact - transform.position).normalized;
+      //_ChestRB.AddForce(dir * force, ForceMode.Impulse);
+      foreach(Rigidbody rb in _RagDollRB) {
+         Vector3 dir = pointOfImpact.normalized;
+         rb.AddForce(dir * force, ForceMode.Impulse);
       }
    }
 }

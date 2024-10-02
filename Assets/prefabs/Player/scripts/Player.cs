@@ -1,28 +1,30 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Basic movement system player, combat and outside elements more interesting.
-/// </summary>
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    [SerializeField] private float _LookSensX;
-    [SerializeField] private float _LookSensY;
+    [SerializeField] private Animator _armsAnim;
     private Camera _camera;
     private PlayerInput _playerInput;
     private CharacterController _charCont;
-    [SerializeField] private Animator _armsAnim;
-    private ArmsProceduralAnimation armAnimator;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _LookSensX;
+    [SerializeField] private float _LookSensY;
+    [SerializeField] private float _gravity;
+    [SerializeField] private float _charVel;
+    [SerializeField] private float _jumpPower;
+    [SerializeField] private float _PunchPower;
+    [SerializeField] private float _PushForce;
+    [SerializeField] private Transform _PointOfImpact;
     private Vector2 _moveInput;
     private bool _punchingRight;
     private bool _punchingLeft;
     private float verticalRot = 0;
-    [SerializeField] private float _gravity;
-    [SerializeField] private float _charVel;
-    [SerializeField] private float _jumpPower;
     private Vector3 _charDir;
-
+    private ArmsProceduralAnimation _ArmAnimator;
+    private Arms _Arms;
+    private PowerUp _CurrentPowerUp = new PowerUp();
 
     void Start()
     {        
@@ -30,14 +32,18 @@ public class Player : MonoBehaviour
         _charCont = GetComponent<CharacterController>();
         _camera = GetComponentInChildren<Camera>();
         _armsAnim = GetComponentInChildren<Animator>();
-        armAnimator = GetComponent<ArmsProceduralAnimation>();
+        _ArmAnimator = GetComponent<ArmsProceduralAnimation>();
+        _Arms = GetComponentInChildren<Arms>();
 
         Cursor.lockState = CursorLockMode.Locked;
         _playerInput.Player.Enable();
+
+        _Arms.OnHandCollision += HandleHandCollision;
     }
 
     void FixedUpdate()
     {
+        _CurrentPowerUp.OnUpdate();
         Movement();
     }
 
@@ -45,7 +51,6 @@ public class Player : MonoBehaviour
     {
         Look();
         Punching();
-        
     }
 
     void Movement()
@@ -95,11 +100,11 @@ public class Player : MonoBehaviour
         _moveInput = value.Get<Vector2>();
         if(_moveInput != Vector2.zero)
         {
-            armAnimator.StartWalkCycle();
+            _ArmAnimator.StartWalkCycle();
         }
         else
         {
-            armAnimator.StopWalkCycle();
+            _ArmAnimator.StopWalkCycle();
         }
     }
 
@@ -117,5 +122,43 @@ public class Player : MonoBehaviour
     {
         bool jumping = value.Get<float>() > 0;
         if(jumping && _charCont.isGrounded) _charVel += _jumpPower;
+    }
+
+    public void OnThrowPowerUp(InputValue value)
+    {
+        _CurrentPowerUp.Eject(transform.forward);
+
+    }
+
+    public void OnSpecial(InputValue value)
+    {
+        _CurrentPowerUp.OnSpecialPressed(value.Get<float>() > 0);
+    }
+
+    public void OnGrab(InputValue value)
+    {
+        _armsAnim.SetTrigger("GrabItem");
+    }
+
+    void HandleHandCollision(GameObject obj, ArmActions action)
+    {
+        Debug.Log(obj.name);
+        if(obj.tag == "Enemy" && action == ArmActions.Punching)
+            obj.GetComponent<Enemy>().AddHealth(-_PunchPower, _PointOfImpact.position, _PushForce);
+
+        if(obj.tag == "Pickup" && action == ArmActions.Grabbing)
+        {
+            _CurrentPowerUp = obj.GetComponent<PowerUp>();
+            AdjustToPowerUp(_CurrentPowerUp);
+            _CurrentPowerUp.OnStart();
+
+        }
+    }
+
+    void AdjustToPowerUp(PowerUp powerUp)
+    {
+        _PunchPower = powerUp.Strength;
+        _jumpPower = powerUp.Jump;
+        _PushForce = powerUp.PushPower;
     }
 }
