@@ -47,11 +47,15 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         _CurrentPowerUp.OnUpdate();
+        if(!_CurrentPowerUp.NormalMovement)
+            return;
         Movement();
     }
 
     void LateUpdate()
     {
+        if(!_CurrentPowerUp.NormalMovement)
+            return;
         Look();
         Punching();
     }
@@ -113,16 +117,22 @@ public class Player : MonoBehaviour
 
     public void OnRightPunch(InputValue value)
     {
+        if(!_CurrentPowerUp.NormalMovement)
+            return;
         _punchingRight = value.Get<float>() > 0;
     }
 
     public void OnLeftPunch(InputValue value)
     {
+        if(!_CurrentPowerUp.NormalMovement)
+            return;
         _punchingLeft = value.Get<float>() > 0;
     }
 
     public void OnJump(InputValue value)
     {
+        if(!_CurrentPowerUp.NormalMovement)
+            return;
         bool jumping = value.Get<float>() > 0;
         if(jumping && _charCont.isGrounded) _charVel += _jumpPower;
     }
@@ -140,11 +150,15 @@ public class Player : MonoBehaviour
 
     public void OnSpecial(InputValue value)
     {
+        if(!_CurrentPowerUp.NormalMovement)
+            return;
         _CurrentPowerUp.OnSpecialPressed(value.Get<float>() > 0);
     }
 
     public void OnGrab(InputValue value)
     {
+        if(!_CurrentPowerUp.NormalMovement)
+            return;
         _armsAnim.SetTrigger("GrabItem");
     }
 
@@ -160,6 +174,11 @@ public class Player : MonoBehaviour
             AdjustToPowerUp(obj.GetComponent<PowerUp>());
             _CurrentPowerUp.OnStart();
 
+        }
+        if(obj.tag == "Cube" && action == ArmActions.Punching)
+        {
+            obj.GetComponent<ReplaceCube>().Replace();
+            Debug.Log(obj.name);
         }
     }
 

@@ -6,6 +6,7 @@ public class PowerUp : MonoBehaviour
     [SerializeField] protected float _Jump = 3;
     [SerializeField] protected float _PushPower = 10;
     [SerializeField] private GameObject _Model;
+    [SerializeField] protected bool _NormalMovement = true;
     public float Strength
     {
         get{return _Strength;}
@@ -20,6 +21,12 @@ public class PowerUp : MonoBehaviour
     {
         get{return _PushPower;}
         protected set{_PushPower = value;}
+    }
+
+    public bool NormalMovement
+    {
+        get{return _NormalMovement;}
+        protected set {_NormalMovement = value;}
     }
 
     public virtual void OnStart(){}
